@@ -9,18 +9,18 @@ class UserTodo{
 }
 
 //let user enter there data
-const userInput = document.querySelector('.js-to-do-text');
+const userText = document.querySelector('.js-to-do-text');
 const userDate = document.querySelector('.js-user-date')
 const submitBtn = document.querySelector('.js-submit-btn');
+const userDataOutput = document.querySelector('.js-user-data-output');
 //get the data and store it
 submitBtn.addEventListener('click',()=>{
-    /* const userData = {
-        todo: userInput.value,
-        date: userSetDate.value
-    } */
-   const userData = new UserTodo(userInput.value, userDate.value);
-
-    todoData.push(userData);
-    console.log(todoData)
+   const userTodo = new UserTodo(userText.value, userDate.value);
+    todoData.push(userTodo);
+    let html = ''
+    todoData.forEach((data)=>{
+        html += `<p>Todo: ${data.todo}, Date: ${data.date}</p>`
+    })
+    userDataOutput.innerHTML = html;
 })
 
