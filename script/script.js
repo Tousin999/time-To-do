@@ -1,10 +1,11 @@
 //to-list app
 
-const todoData = [];
+let todoData = [];
 class UserTodo{
     constructor(todo, date){
         this.todo = todo;
         this.date = date;
+        this.id = Date.now();
     }
 }
 
@@ -17,10 +18,26 @@ const userDataOutput = document.querySelector('.js-user-data-output');
 submitBtn.addEventListener('click',()=>{
    const userTodo = new UserTodo(userText.value, userDate.value);
     todoData.push(userTodo);
+    renderTodo();
+})
+
+function renderTodo(){
     let html = ''
     todoData.forEach((data)=>{
-        html += `<p>Todo: ${data.todo}, Date: ${data.date}</p>`
+        html += `<p>Todo: ${data.todo}, Date: ${data.date}</p><button class="js-delete-btn" data-id="${data.id}">Delete</button>`
     })
+    userText.value = ''
     userDataOutput.innerHTML = html;
-})
+    attachDeleteListener();
+}
+
+function attachDeleteListener(){
+    document.querySelectorAll('.js-delete-btn').forEach((btn)=>{
+        btn.addEventListener('click',()=>{
+            const deleteId = btn.dataset.id;
+            todoData = todoData.filter((userTodo)=> userTodo.id != deleteId);
+            renderTodo();
+        })
+    })
+}
 
