@@ -1,6 +1,5 @@
 //to-list app
-
-let todoData = [];
+let todoData = JSON.parse(localStorage.getItem('todoData')) || [];
 class UserTodo{
     constructor(todo, date){
         this.todo = todo;
@@ -14,10 +13,13 @@ const userText = document.querySelector('.js-to-do-text');
 const userDate = document.querySelector('.js-user-date')
 const submitBtn = document.querySelector('.js-submit-btn');
 const userDataOutput = document.querySelector('.js-user-data-output');
+
+renderTodo();
 //get the data and store it
 submitBtn.addEventListener('click',()=>{
    const userTodo = new UserTodo(userText.value, userDate.value);
     todoData.push(userTodo);
+    userText.value = ''
     renderTodo();
 })
 
@@ -26,9 +28,9 @@ function renderTodo(){
     todoData.forEach((data)=>{
         html += `<p>Todo: ${data.todo}, Date: ${data.date}</p><button class="js-delete-btn" data-id="${data.id}">Delete</button>`
     })
-    userText.value = ''
     userDataOutput.innerHTML = html;
     attachDeleteListener();
+    localStorage.setItem('todoData', JSON.stringify(todoData));
 }
 
 function attachDeleteListener(){
@@ -40,4 +42,5 @@ function attachDeleteListener(){
         })
     })
 }
+
 
