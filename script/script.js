@@ -2,13 +2,12 @@
 // TO-DO error-handling with localstorage
 let todoData = JSON.parse(localStorage.getItem('todoData')) || [];
 
-
 class UserTodo{
     constructor(todo, date){
         this.todo = todo;
         this.date = date;
         this.id = Date.now();
-        this.isComplete = false;
+        this.isComplete = '';
     }
 }
 
@@ -19,6 +18,7 @@ const submitBtn = document.querySelector('.js-submit-btn');
 const userDataOutput = document.querySelector('.js-user-data-output');
 
 renderTodo();
+attachListener();
 //get the data and store it
 submitBtn.addEventListener('click',()=>{
     if(!userText.value){
@@ -40,24 +40,43 @@ function renderTodo(){
     let html = ''
     todoData.forEach((data)=>{
         //TO-DO add function to checkbox
-        html += `<p>Todo: ${data.todo}, Date: ${data.date}</p><button class="js-delete-btn btn btn2" data-id="${data.id}">Delete</button><input type="checkbox" >`
+        html += `<div class="js-todo" data-id="${data.id}">
+        <p>Todo: ${data.todo}, Date: ${data.date}</p>
+        <button class="js-delete-btn btn btn2" data-id="${data.id}">Delete</button>
+        <input class="js-checkbox" type="checkbox" data-id="${data.id}" ${data.isComplete}>
+        </div>`
     })
     userDataOutput.innerHTML = html;
-    attachDeleteListener();
     localStorage.setItem('todoData', JSON.stringify(todoData));
 }
 
-function attachDeleteListener(){
+function attachListener(){
     // Event Delegation
     userDataOutput.addEventListener('click',(event)=>{
-           if(event.target.classList.contains('js-delete-btn')){
-            const deleteId = event.target.dataset.id;
+            const targetedEvent = event.target;
+            if(targetedEvent.classList.contains('js-delete-btn')){
+            const deleteId = targetedEvent.dataset.id;
             todoData = todoData.filter((userTodo)=> userTodo.id != deleteId);
             renderTodo();
            }
            //TO-DO modify tododata base on checkBox
+            if(targetedEvent.classList.contains('js-checkbox')){
+                const id = Number(targetedEvent.dataset.id);
+                const foundtodo = todoData.find(todo=> todo.id === id);
+                if(!foundtodo){
+                    console.log('not found')
+                    return;
+                }
+                if(foundtodo.isComplete){
+                    foundtodo.isComplete = '';
+                }else{
+                    foundtodo.isComplete = 'checked';
+                }
+                localStorage.setItem('todoData', JSON.stringify(todoData));
+           }
         })
     }
+  
 
 
 
