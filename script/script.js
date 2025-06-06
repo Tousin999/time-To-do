@@ -15,6 +15,7 @@ class UserTodo{
         this.date = date;
         this.id = Date.now();
         this.isComplete = false;
+        this.postDate = new Date(this.id).toLocaleString();
     }
 }
 
@@ -48,7 +49,7 @@ function renderTodo(){
     todoData.forEach((data)=>{
         //TO-DO add function to checkbox
         html += `<div class="js-todo" data-id="${data.id}">
-        <p>Todo: ${data.todo}, Date: ${data.date}</p>
+        <p>Todo: ${data.todo}  Date: ${data.date} Postdate: ${data.postDate}</p>
         <button class="js-delete-btn btn btn2" data-id="${data.id}">Delete</button>
         <input class="js-checkbox" type="checkbox" data-id="${data.id}" ${data.isComplete ? 'checked':''}>
         </div>`
@@ -84,6 +85,4 @@ function attachListener(){
         })
     }
   
-
-
 
