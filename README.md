@@ -19,7 +19,7 @@ A simple, interactive To-Do List application built with vanilla JavaScript, HTML
 ## How to Run
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/Tousin999/time-To-do.git](https://github.com/Tousin999/time-To-do.git)
+    git clone https://github.com/Tousin999/time-To-do.git
     ```
 2.  **Navigate to the project directory:**
     ```bash
