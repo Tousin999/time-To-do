@@ -1,13 +1,20 @@
 //to-list app
 // TO-DO error-handling with localstorage
-let todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+let todoData;
+try{
+    todoData = JSON.parse(localStorage.getItem('todoData')) || [];
+}catch(err){
+    console.log(err);
+    todoData = [];
+}
+
 
 class UserTodo{
     constructor(todo, date){
         this.todo = todo;
         this.date = date;
         this.id = Date.now();
-        this.isComplete = '';
+        this.isComplete = false;
     }
 }
 
@@ -43,7 +50,7 @@ function renderTodo(){
         html += `<div class="js-todo" data-id="${data.id}">
         <p>Todo: ${data.todo}, Date: ${data.date}</p>
         <button class="js-delete-btn btn btn2" data-id="${data.id}">Delete</button>
-        <input class="js-checkbox" type="checkbox" data-id="${data.id}" ${data.isComplete}>
+        <input class="js-checkbox" type="checkbox" data-id="${data.id}" ${data.isComplete ? 'checked':''}>
         </div>`
     })
     userDataOutput.innerHTML = html;
@@ -60,7 +67,7 @@ function attachListener(){
             renderTodo();
            }
            //TO-DO modify tododata base on checkBox
-            if(targetedEvent.classList.contains('js-checkbox')){
+            else if(targetedEvent.classList.contains('js-checkbox')){
                 const id = Number(targetedEvent.dataset.id);
                 const foundtodo = todoData.find(todo=> todo.id === id);
                 if(!foundtodo){
@@ -68,9 +75,9 @@ function attachListener(){
                     return;
                 }
                 if(foundtodo.isComplete){
-                    foundtodo.isComplete = '';
+                    foundtodo.isComplete = false;
                 }else{
-                    foundtodo.isComplete = 'checked';
+                    foundtodo.isComplete = true;
                 }
                 localStorage.setItem('todoData', JSON.stringify(todoData));
            }
