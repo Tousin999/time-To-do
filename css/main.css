@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+html{
+    font-size: 62.5%;
+}
+
+body{
+    font-family: 'Roboto';
+    background-color: #ead3ff;
+}
+
+.main-conatiner{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    font-size: 4.8rem;
+    color: #a23eff;
+    margin: 4rem;
+    background-color: #59258a;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 5px solid black;
+}
+
+section{
+    margin-bottom: 2.5rem;
+}
+
+.btn-submit{
+    color: #ffffff;
+    background-color: #29ff29;
+    border-radius: 1rem;
+    font-size: 2rem;
+    padding: 1rem 2rem;
+}
+
+section input{
+    padding: 0.5rem;
+    font-size: 2rem;
+    outline: none;
+    border-radius: 1rem;
+}
+
+.user-input{
+    display: flex;
+    gap: 1rem;
+}
+
+.user-data-output{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-size: 1.6rem;
+    background-color: #fff;
+}
+
+.todo{
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.btn-delete{
+    background-color: red;
+    color: #fff;
+    border: 2px solid black;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+.todo input[type="checkbox"]{
+    width: 2.5rem;
+}
+
+.checked{
+    text-decoration: line-through;
+}

@@ -12,10 +12,10 @@ try{
 class UserTodo{
     constructor(todo, date){
         this.todo = todo;
-        this.date = date;
+        this.date = date; //user-entered due date
         this.id = Date.now();
         this.isComplete = false;
-        this.postDate = new Date(this.id).toLocaleString();
+        this.postDate = new Date(this.id).toLocaleString(); // user post date
     }
 }
 
@@ -48,9 +48,9 @@ function renderTodo(){
     let html = ''
     todoData.forEach((data)=>{
         //TO-DO add function to checkbox
-        html += `<div class="js-todo" data-id="${data.id}">
-        <p>Todo: ${data.todo}  Date: ${data.date} Postdate: ${data.postDate}</p>
-        <button class="js-delete-btn btn btn2" data-id="${data.id}">Delete</button>
+        html += `<div class="todo js-todo" data-id="${data.id}">
+        <p ${data.isComplete? 'class="checked"':''}>Todo: ${data.todo}  Date: ${data.date} Postdate: ${data.postDate}</p>
+        <button class="js-delete-btn btn-delete" data-id="${data.id}">delete</button>
         <input class="js-checkbox" type="checkbox" data-id="${data.id}" ${data.isComplete ? 'checked':''}>
         </div>`
     })
@@ -80,7 +80,7 @@ function attachListener(){
                 }else{
                     foundtodo.isComplete = true;
                 }
-                localStorage.setItem('todoData', JSON.stringify(todoData));
+                renderTodo();
            }
         })
     }
